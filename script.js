@@ -3,9 +3,9 @@
 
 class Fighter{
   // Fighter has properties: name, healthPoints
-  constructor(name, healthPoints){
+  constructor(name){
     this.name = name;
-    this.healthPoints = healthPoints;
+    this.healthPoints = 15;
     
   }
 
@@ -19,7 +19,7 @@ class Fighter{
   // Fighter has an attack method that takes in the opponent's object and decreases its' health
   attack(opponentObject){
     //use randomNum to generate attack points value between 1 - 5 and save the value to a variable named playerAttackPoints
-      let opponentPoints = randomNum(1, 6)
+      let opponentPoints = this.randomNum(1, 6)
 
       opponentObject.healthPoints = opponentObject.healthPoints - opponentPoints
       
@@ -34,8 +34,8 @@ class Fighter{
 // Monster and Hero will extend Fighter and add at least 1 unique property to each 
 
 class Monster extends Fighter{
-  constructor(name, healthPoints, size){
-  super(name, healthPoints)
+  constructor(name, size){
+  super(name)
   this.size = size; 
   
 
@@ -44,20 +44,18 @@ class Monster extends Fighter{
 
 
 class Hero extends Fighter{
-    constructor(name, healthPoints, size){
-    super(name, healthPoints)
-    this.size = size; 
-  
-    }
+  constructor(name, size){
+  super(name)
+  this.size = size; 
+
   }
+}
 
-
-let monster = new Monster('Wolf', 15, 'big')
-let hero = new Hero('Nol', 15, 'regular')
+let hero = new Hero(prompt('Enter your name: '), prompt('Enter your size: \n(small, regular, big, Giant)'))
+let monster = new Monster('RandWolf', prompt(`Your size is ${hero.size}. Chose monster size: \n Big or Giant`))
+ 
 console.log(monster.name)
-console.log(hero.name)  
-
-  
+console.log(hero.name)   
 
 
 
@@ -69,7 +67,7 @@ function randomNum(min, max) {
 }
 
 
-function playRound() {
+function playRound(hero, monster) {
   //use randomNum to return either 0 or 1
   num = randomNum(0,2)
   //0 = player goes first, 1 = monster goes first
@@ -94,10 +92,10 @@ function playRound() {
   }
 }
   
-function playGame() {
+function playGame(hero, monster) {
   //beginning game message
   alert(
-    `Hello, ${hero.name}! You are fighting monster ${monster.name}! Your health is at ${hero.healthPoints}, ${monster.name}'s health is at ${monster.healthPoints}`
+    `Hello, ${hero.name}! You are fighting monster ${monster.name}! Your health is at ${hero.healthPoints} points, ${monster.name}'s health is at ${monster.healthPoints} points.`
   );
 
  let roundNumber = 0
@@ -110,7 +108,7 @@ function playGame() {
     alert(`This is round number ${roundNumber}, ${hero.name}'s health is ${hero.healthPoints} and the monster's health is ${monster.healthPoints} `)
    
     //call playRound inside the while loop
-   playRound() 
+   playRound(hero, monster) 
   }
   //outside of while loop, declare a winner and use alert to show a win or lose message
   if (hero.healthPoints > monster.healthPoints){
@@ -121,4 +119,4 @@ function playGame() {
 }
 
 //call playGame to start game
-playGame()
+playGame(hero, monster)
